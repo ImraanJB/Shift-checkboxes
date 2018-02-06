@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hold Shift to Check Multiple Checkboxes</title>
+</head>
+<body>
+  <style>
+    html {
+      font-family: sans-serif;
+      background:#00eeff;
+    }
+    .inbox {
+      max-width:400px;
+      margin:50px auto;
+      background:white;
+      border-radius:5px;
+      box-shadow:10px 10px 0 rgba(0,0,0,0.1);
+    }
+    .item {
+      display:flex;
+      align-items:center;
+      border-bottom: 1px solid rgb(39, 39, 39);
+    }
+    .item:last-child {
+      border-bottom:0;
+    }
+    input:checked + p {
+      background:#F9F9F9;
+      text-decoration: line-through;
+    }
+    input[type="checkbox"] {
+      margin:10px;
+    }
+    p {
+      margin:0;
+      padding:20px;
+      transition:background 0.2s;
+      flex:1;
+      font-family:'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+      border-left: 1px solid rgb(16, 16, 17);
+    }
+  </style>
+  
+  <div class="inbox">
+    <div class="item">
+      <input type="checkbox">
+      <p>Milk</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Sugar</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Nuttela</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Maggie</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Pickles</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Green Tea</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Dal/Rice/Atta</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Oil/Ghee</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Eggs/Chicken</p>
+    </div>
+  </div>
+
+<script>
+
+    const check = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+    let lastChecked;
+
+    function handleCheck(e){
+        let between = false;
+
+        if(e.shiftKey && this.checked){
+            check.forEach(checkbox =>{
+                if(checkbox === this || checkbox === lastChecked){
+                    between = !between;
+                }
+                if(between){
+                    checkbox.checked = true;
+                }
+            });
+        }
+        
+        lastChecked = this;
+    }
+
+    check.forEach(checkbox => checkbox.addEventListener('click' , handleCheck));
+
+</script>
+</body>
+</html>
